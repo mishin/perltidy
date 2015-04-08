@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 #
 ############################################################
 #
@@ -30202,4 +30203,18 @@ BEGIN {
     @is_keyword{@Keywords} = (1) x scalar(@Keywords);
 }
 1;
-__END__
+package main;
+
+
+my $arg_string = undef;
+
+# give Macs a chance to provide command line parameters
+if ( $^O =~ /Mac/ ) {
+    $arg_string = MacPerl::Ask(
+        'Please enter @ARGV (-h for help)',
+        defined $ARGV[0] ? "\"$ARGV[0]\"" : ""
+    );
+}
+
+Perl::Tidy::perltidy( argv => $arg_string );
+
