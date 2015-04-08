@@ -967,7 +967,7 @@ EOM
 
             # Trying to avoid problems with ancient versions of perl because
             # I don't know in which version number utf8::encode was introduced.
-            eval { my $string = "perltidy"; encode_utf8($string) };
+            eval { my $string = "perltidy"; encode( 'utf8', $string ) };
             $do_convergence_test = $do_convergence_test && !$@;
         }
 
@@ -1086,7 +1086,7 @@ EOM
 
                     # Patch for [rt.cpan.org #88020]
                     # Use utf8::encode since md5_hex() only operates on bytes.
-                    my $digest = md5_hex( encode_utf8($sink_buffer) );
+                    my $digest = md5_hex( encode( 'utf8', $sink_buffer) );
                     if ( !$saw_md5{$digest} ) {
                         $saw_md5{$digest} = $iter;
                     }
